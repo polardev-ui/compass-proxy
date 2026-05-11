@@ -2,7 +2,12 @@ const http = require('http');
 const Unblocker = require('unblocker');
 
 const unblocker = new Unblocker({
-    prefix: '/proxy/'
+    prefix: '/proxy/',
+    requestMiddleware: [
+        (data) => {
+            data.headers['host'] = 'compass-proxy.xs001.jrnm.app';
+        }
+    ]
 });
 
 http.createServer((req, res) => {
@@ -13,6 +18,6 @@ http.createServer((req, res) => {
             return;
         }
         res.writeHead(200, {'Content-Type': 'text/plain'});
-        res.end('compassplate proxy is running and functional. use /proxy/https://google.com to browse.');
+        res.end('proxy is active and anonymization is active - compassplate - https://play.wsgpolar.tech');
     });
 }).listen(process.env.PORT || 8080);
